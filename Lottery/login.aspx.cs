@@ -1,8 +1,10 @@
-﻿using System;
+﻿using BCrypt.Net;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Policy;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -26,32 +28,41 @@ namespace Lottery
             string id = txtEmail.Text.Trim(); // Id = 登入帳號
             string password = txtPassword.Text.Trim();
             string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
+            string username = null;
+            string dbHash = null;
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT Username FROM [User] WHERE Id = @Id AND Password = @Password";
+                string query = "SELECT Username ,[Password] FROM  [user] WHERE Id=@Id";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Id", id);
-                cmd.Parameters.AddWithValue("@Password", password); // 實務應加密比對
                 conn.Open();
-                object result = cmd.ExecuteScalar();
-                if (result != null)
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    string username = result.ToString();
-                    Session["UserId"] = id;
-                    Session["Username"] = username;
-                    Response.Redirect("Draw2.aspx");
-                }
-                else
-                {
-                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('帳號或密碼錯誤');", true);
-                    Msg.Text = "<script>" +
-                        "Swal.fire({ icon: 'error',  " +
-                        "title: 'Oops...',  " +
-                        "text: 'Incorrect username or password!'}); " +
-                        "</script >";
+                    if (reader.Read())
+                    {
+                        username = reader["Username"].ToString();
+                        dbHash = reader["Password"].ToString();
+                    }
                 }
             }
 
+            if (dbHash != null && BCrypt.Net.BCrypt.Verify(password, dbHash))
+            {
+                Session["UserId"] = id;
+                Session["Username"] = username;
+                Response.Redirect("Draw2.aspx");
+            }
+            else
+            {
+                Msg.Text = "<script>" +
+                    "Swal.fire({ icon: 'error', " +
+                    "title: 'Oops...', " +
+                    "text: 'Incorrect username or password!' });" +
+                    "</script>";
+
+            }
         }
     }
 }

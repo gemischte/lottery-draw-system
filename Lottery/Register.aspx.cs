@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using BCrypt.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -39,11 +40,12 @@ ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
                 {
                     connection.Open(); // 開啟連線
                                        // 插入資料的 SQL 命令
-                    var command = new SqlCommand("INSERT INTO [User] (Id, Username, Password,RegisterDate) VALUES(@Id, @Username, @Password, GETDATE())", connection);
+                    var command = new SqlCommand("INSERT INTO [User] (Id, Username, [Password],RegisterDate) VALUES(@Id, @Username, @Password, GETDATE())", connection);
 
                     command.Parameters.AddWithValue("@Id", userid.Text);
                     command.Parameters.AddWithValue("@Username", Username.Text);
-                    command.Parameters.AddWithValue("@Password", Password.Text);
+                    string hash_Pwd = BCrypt.Net.BCrypt.HashPassword(Password.Text);
+                    command.Parameters.AddWithValue("@Password", hash_Pwd);
                     command.ExecuteNonQuery(); // 執行插入資料命令
                 }
                 // 顯示寫入完成訊息
