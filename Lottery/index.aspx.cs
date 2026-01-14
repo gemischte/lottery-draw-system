@@ -14,9 +14,14 @@ namespace Lottery
 
         }
 
-        protected void btnLogin_Click(object sender, EventArgs e)
+        protected void RedirectToLogin(object sender, EventArgs e)
         {
+            Response.Redirect("~/login.aspx");
+        }
 
+        protected void RedirectToRegister(object sender, EventArgs e) 
+        {
+            Response.Redirect("~/register.aspx");
         }
     }
 }

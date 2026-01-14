@@ -20,7 +20,7 @@ namespace Lottery
 
 
 
-        protected void Button1_Click1(object sender, EventArgs e)
+        protected void btnRegister_Click(object sender, EventArgs e)
         {
             //Label1.Text = Account.Text;
             //Label1.Text += Username.Text;
