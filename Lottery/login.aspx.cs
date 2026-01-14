@@ -18,12 +18,12 @@ namespace Lottery
 
         }
 
-        protected void btnLogin_Click(object sender, EventArgs e)
+        protected void RedirectToLogin(object sender, EventArgs e)
         {
 
         }
 
-        protected void btnLogin_Click1(object sender, EventArgs e)
+        protected void btnLogin_Click(object sender, EventArgs e)
         {
             string id = txtEmail.Text.Trim(); // Id = 登入帳號
             string password = txtPassword.Text.Trim();

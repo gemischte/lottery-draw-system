@@ -46,12 +46,9 @@
 <body>
     <form id="form1" runat="server">
         <div class="container">
-            <!-- 圖片 -->
             <img src="https://png.pngtree.com/png-vector/20221222/ourmid/pngtree-super-cute-cartoon-vector-bear-png-image_6504049.png" alt="Logo" class="logo" />
-
-            <!-- 登入與註冊按鈕 垂直排列 -->
-            <asp:Button ID="btnLogin" runat="server" Text="登入" CssClass="btn" PostBackUrl="~/login.aspx" OnClick="btnLogin_Click" />
-            <asp:Button ID="btnRegister" runat="server" Text="註冊"  PostBackUrl="~/register.aspx" CssClass="btn" />
+            <asp:Button ID="btnLogin" runat="server" Text="Login" CssClass="btn" OnClick="RedirectToLogin" />
+            <asp:Button ID="btnRegister" runat="server" Text="Register" CssClass="btn" OnClick="RedirectToRegister" />
         </div>
     </form>
 </body>

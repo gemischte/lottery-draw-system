@@ -99,6 +99,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\brand\bootstrap-logo-white.svg" />
+    <Content Include="assets\brand\bootstrap-logo.svg" />
+    <Content Include="assets\dist\css\bootstrap.min.css" />
+    <Content Include="assets\dist\css\bootstrap.rtl.min.css" />
+    <Content Include="assets\dist\js\bootstrap.bundle.min.js" />
     <Content Include="Collection.aspx" />
     <Content Include="Collection2.aspx" />
     <Content Include="Draw.aspx" />
@@ -184,6 +189,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\dist\css\bootstrap.min.css.map" />
+    <Content Include="assets\dist\css\bootstrap.rtl.min.css.map" />
+    <Content Include="assets\dist\js\bootstrap.bundle.min.js.map" />
     <None Include="packages.config" />
     <Content Include="Site1.Master" />
     <None Include="Web.Debug.config">
